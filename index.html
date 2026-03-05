@@ -1,248 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FOR THE MOST LOVED ONE 💕</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOR THE MOST LOVED ONE 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', cursive;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+        body {
+            background: #ffd6e8;
+            overflow-x: hidden;
+        }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Comic Neue', cursive;
-}
+        body::before {
+            content: "❤️ 💕 💖 💗 💓";
+            position: fixed;
+            font-size: 40px;
+            opacity: 0.15;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
 
-body {
-    background: #ffd6e8;
-    overflow-x: hidden;
-}
+        /* Music Toggle Button */
+        #music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: 2px solid #ff4d6d;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
 
-body::before {
-    content: "❤️ 💕 💖 💗 💓";
-    position: fixed;
-    font-size: 40px;
-    opacity: 0.15;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
+        .page {
+            min-height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
 
-.page {
-    min-height: 100vh;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-}
+        .page.active {
+            display: flex;
+        }
 
-.page.active {
-    display: flex;
-}
+        h1 {
+            font-size: 3rem;
+            color: #c70039;
+        }
 
-h1 {
-    font-size: 3rem;
-    color: #c70039;
-}
+        .hero-img {
+            max-width: 300px;
+            margin: 20px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
 
-.hero-img {
-    max-width: 300px;
-    margin: 20px 0;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 30px;
+            background: #ff4d6d;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+            z-index: 10;
+        }
 
-button {
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 30px;
-    background: #ff4d6d;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-top: 20px;
-    z-index: 10;
-}
+        button:hover {
+            transform: scale(1.05);
+            background: #c70039;
+        }
 
-button:hover {
-    transform: scale(1.05);
-}
+        .frame {
+            border: 8px solid #ff4d6d;
+            border-radius: 30px;
+            padding: 25px;
+            max-width: 800px;
+            background: #fff0f6;
+            position: relative;
+            z-index: 5;
+        }
 
-.frame {
-    border: 8px solid #ff4d6d;
-    border-radius: 30px;
-    padding: 25px;
-    max-width: 800px;
-    background: #fff0f6;
-    position: relative;
-    z-index: 5;
-}
+        .frame::before {
+            content: "❤️ 💕 💖 💗";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            background: #ffd6e8;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
 
-.frame::before {
-    content: "❤️ 💕 💖 💗";
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    background: #ffd6e8;
-    padding: 5px 15px;
-    border-radius: 20px;
-}
+        .message {
+            font-size: 1.5rem;
+            color: #a00038;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
 
-.message {
-    font-size: 1.5rem;
-    color: #a00038;
-    margin-bottom: 20px;
-}
+        .slideshow {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 5px solid #ff85a1;
+        }
 
-.slideshow {
-    width: 100%;
-    max-width: 400px;
-    height: 300px;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 20px;
-}
+        .slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
 
-.slideshow img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
-}
+        .slideshow img.active {
+            display: block;
+        }
 
-.slideshow img.active {
-    display: block;
-}
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
 
-.confetti {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    top: -10px;
-    animation: fall linear forwards;
-    z-index: 1;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-    }
-}
-</style>
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<audio id="musicTrack" src="music.mp3" loop></audio>
+    <audio id="bgMusic" src="music.mp3" loop pre-load="auto"></audio>
 
-<div class="page active" id="page1">
-    <h1>YOOOOO GEET 💕</h1>
-    <img src="img6.jpg" class="hero-img">
-    <button onclick="startExperience()">FOR YOU 💖</button>
-</div>
+    <button id="music-toggle" onclick="toggleMusic()">🎵</button>
 
-<div class="page" id="page2">
-    <div class="frame">
-        <p class="message">
-            I wish I were near you, but as you know, I’m not.
-            So, here is something to make you feel good. 💗
-        </p>
+    <div class="page active" id="page1">
+        <h1>YOOOOO GEET 💕</h1>
+        <img src="img6.jpg" class="hero-img" alt="Geet">
+        <button onclick="startEverything()">FOR YOU 💖</button>
+    </div>
 
-        <div class="slideshow">
-            <img src="img6.jpg" class="slide active">
-            <img src="img2.jpg" class="slide">
-            <img src="img3.jpg" class="slide">
-            <img src="img4.jpg" class="slide">
-            <img src="img5.jpg" class="slide">
-            <img src="img1.jpg" class="slide">
-            <img src="img7.jpg" class="slide">
+    <div class="page" id="page2">
+        <div class="frame">
+            <p class="message">
+                I wish I were near you, but as you know, I’m not.
+                So, here is something to make you feel good. 💗
+            </p>
+
+            <div class="slideshow">
+                <img src="img6.jpg" class="slide active">
+                <img src="img2.jpg" class="slide">
+                <img src="img3.jpg" class="slide">
+                <img src="img4.jpg" class="slide">
+                <img src="img5.jpg" class="slide">
+                <img src="img1.jpg" class="slide">
+                <img src="img7.jpg" class="slide">
+            </div>
+
+            <button onclick="showPage('page2', 'page3')">CLICK HERE 💕</button>
         </div>
-
-        <button onclick="changePage('page2', 'page3')">CLICK HERE 💕</button>
     </div>
-</div>
 
-<div class="page" id="page3">
-    <div class="frame">
-        <p class="message">
-            For the best human being on the planet. 💖
-        </p>
-        <button onclick="changePage('page3', 'page4')">CLICK HERE ❤️</button>
+    <div class="page" id="page3">
+        <div class="frame">
+            <p class="message">
+                For the best human being on the planet. 💖
+            </p>
+            <button onclick="showPage('page3', 'page4')">CLICK HERE ❤️</button>
+        </div>
     </div>
-</div>
 
-<div class="page" id="page4">
-    <div class="frame">
-        <p class="message">
-            You do so much for everyone else, so now it’s time to let us look after you.  
-            Khoonkhar Geet Shooter, you are the most amazing person I know. You deserve all the love and care in the world.  
-            <br><br>
-            <strong>Some people try to be the best, but you’re already the best. 💖</strong>
-        </p>
+    <div class="page" id="page4">
+        <div class="frame">
+            <p class="message">
+                You do so much for everyone else, so now it’s time to let us look after you.  
+                Khoonkhar Geet Shooter, you are the most amazing person I know. You deserve all the love and care in the world.  
+                <br><br>
+                <strong>Some people try to be the best, but you’re already the best. 💖</strong>
+            </p>
+        </div>
     </div>
-</div>
 
-<script>
-// This starts the music and moves to page 2
-function startExperience() {
-    const song = document.getElementById("musicTrack");
-    
-    // Check if the song element exists before playing
-    if (song) {
-        song.play().catch(e => {
-            console.log("Autoplay prevented by browser. Music will play on first click.");
-        });
-    }
+    <script>
+        const song = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("music-toggle");
 
-    // Move to next page
-    changePage('page1', 'page2');
-    
-    // Start images
-    startSlideshow();
-}
+        function toggleMusic() {
+            if (song.paused) {
+                song.play();
+                musicBtn.innerText = "🔊";
+            } else {
+                song.pause();
+                musicBtn.innerText = "🔇";
+            }
+        }
 
-function changePage(currentId, nextId) {
-    document.getElementById(currentId).classList.remove("active");
-    document.getElementById(nextId).classList.add("active");
-    launchConfetti();
-}
+        function startEverything() {
+            // Start Music
+            song.play().catch(e => console.log("Music pending user choice"));
+            musicBtn.innerText = "🔊";
+            
+            // Move to Page 2
+            showPage('page1', 'page2');
+            
+            // Start Slideshow
+            startSlideshow();
+        }
 
-function launchConfetti() {
-    for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement("div");
-        confetti.className = "confetti";
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.background = ["#ff4d6d", "#ff85a1", "#c70039"][Math.floor(Math.random()*3)];
-        
-        const duration = Math.random() * 3 + 3;
-        confetti.style.animationDuration = duration + "s";
-        
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), duration * 1000);
-    }
-}
+        function showPage(currentId, nextId) {
+            document.getElementById(currentId).classList.remove("active");
+            document.getElementById(nextId).classList.add("active");
+            launchConfetti();
+        }
 
-function startSlideshow() {
-    const slides = document.querySelectorAll(".slide");
-    let index = 0;
-    if (slides.length > 0) {
-        setInterval(() => {
-            slides[index].classList.remove("active");
-            index = (index + 1) % slides.length;
-            slides[index].classList.add("active");
-        }, 2500);
-    }
-}
-</script>
+        function launchConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement("div");
+                confetti.className = "confetti";
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.background = ["#ff4d6d", "#ff85a1", "#c70039"][Math.floor(Math.random()*3)];
+                
+                const duration = (Math.random() * 3 + 2);
+                confetti.style.animationDuration = duration + "s";
+                
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), duration * 1000);
+            }
+        }
 
+        function startSlideshow() {
+            const slides = document.querySelectorAll(".slide");
+            let index = 0;
+            if (slides.length > 0) {
+                setInterval(() => {
+                    slides[index].classList.remove("active");
+                    index = (index + 1) % slides.length;
+                    slides[index].classList.add("active");
+                }, 2500);
+            }
+        }
+    </script>
 </body>
 </html>
