@@ -131,7 +131,6 @@
             top: -10px;
             animation: fall linear forwards;
             z-index: 1;
-            border-radius: 2px;
         }
 
         @keyframes fall {
@@ -143,12 +142,12 @@
 </head>
 <body>
 
-    <audio id="music" src="music.mp3" loop></audio>
+    <audio id="mySong" src="music.mp3" loop pre-load="auto"></audio>
 
     <div class="page active" id="page1">
         <h1>YOOOOO GEET 💕</h1>
-        <img src="img6.jpg" class="hero-img" alt="Geet">
-        <button onclick="handleStart()">FOR YOU 💖</button>
+        <img src="img6.jpg" class="hero-img">
+        <button onclick="startEverything()">FOR YOU 💖</button>
     </div>
 
     <div class="page" id="page2">
@@ -168,7 +167,7 @@
                 <img src="img7.jpg" class="slide">
             </div>
 
-            <button onclick="nextPage('page2', 'page3')">CLICK HERE 💕</button>
+            <button onclick="showPage('page2', 'page3')">CLICK HERE 💕</button>
         </div>
     </div>
 
@@ -177,7 +176,7 @@
             <p class="message">
                 For the best human being on the planet. 💖
             </p>
-            <button onclick="nextPage('page3', 'page4')">CLICK HERE ❤️</button>
+            <button onclick="showPage('page3', 'page4')">CLICK HERE ❤️</button>
         </div>
     </div>
 
@@ -193,22 +192,23 @@
     </div>
 
     <script>
-        // Start Everything on First Button Click
-        function handleStart() {
-            // 1. Play Music
-            const song = document.getElementById("music");
+        // This function handles the first click to start music and move to page 2
+        function startEverything() {
+            const song = document.getElementById("mySong");
+            
+            // Play music
             if (song) {
-                song.play().catch(e => console.log("Playback failed:", e));
+                song.play().catch(error => console.log("Music failed to play:", error));
             }
 
-            // 2. Switch Page
-            nextPage('page1', 'page2');
-
-            // 3. Start Slideshow
+            // Move to Page 2
+            showPage('page1', 'page2');
+            
+            // Start the image loop
             startSlideshow();
         }
 
-        function nextPage(currentId, nextId) {
+        function showPage(currentId, nextId) {
             document.getElementById(currentId).classList.remove("active");
             document.getElementById(nextId).classList.add("active");
             launchConfetti();
@@ -219,9 +219,9 @@
                 const confetti = document.createElement("div");
                 confetti.className = "confetti";
                 confetti.style.left = Math.random() * 100 + "vw";
-                confetti.style.background = ["#ff4d6d", "#ff85a1", "#c70039", "#ffffff"][Math.floor(Math.random()*4)];
+                confetti.style.background = ["#ff4d6d", "#ff85a1", "#c70039"][Math.floor(Math.random()*3)];
                 
-                const duration = Math.random() * 3 + 2;
+                const duration = (Math.random() * 3 + 2);
                 confetti.style.animationDuration = duration + "s";
                 
                 document.body.appendChild(confetti);
