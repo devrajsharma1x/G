@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FOR THE MOST LOVED ONE 💕</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
@@ -66,6 +67,7 @@ button {
     cursor: pointer;
     transition: 0.3s;
     margin-top: 20px;
+    z-index: 10;
 }
 
 button:hover {
@@ -79,6 +81,7 @@ button:hover {
     max-width: 800px;
     background: #fff0f6;
     position: relative;
+    z-index: 5;
 }
 
 .frame::before {
@@ -125,7 +128,8 @@ button:hover {
     height: 10px;
     background: red;
     top: -10px;
-    animation: fall 20s linear infinite;
+    animation: fall linear forwards;
+    z-index: 1;
 }
 
 @keyframes fall {
@@ -138,14 +142,12 @@ button:hover {
 
 <body>
 
-<!-- PAGE 1 -->
 <div class="page active" id="page1">
     <h1>YOOOOO GEET 💕</h1>
-    <img src="img6.jpg" class="hero-img">
+    <img src="img6.jpg" class="hero-img" alt="Geet">
     <button onclick="openPage2()">FOR YOU 💖</button>
 </div>
 
-<!-- PAGE 2 -->
 <div class="page" id="page2">
     <div class="frame">
         <p class="message">
@@ -154,39 +156,19 @@ button:hover {
         </p>
 
         <div class="slideshow">
-            <img src="img6.jpg" class="slide active">
-        <img src="img2.jpg" class="slide">
-        <img src="img3.jpg" class="slide">
-        <img src="img4.jpg" class="slide">
-        <img src="img5.jpg" class="slide">
-        <img src="img1.jpg" class="slide">
-        <img src="img7.jpg" class="slide">
+            <img src="img6.jpg" class="slide active" alt="Slide 1">
+            <img src="img2.jpg" class="slide" alt="Slide 2">
+            <img src="img3.jpg" class="slide" alt="Slide 3">
+            <img src="img4.jpg" class="slide" alt="Slide 4">
+            <img src="img5.jpg" class="slide" alt="Slide 5">
+            <img src="img1.jpg" class="slide" alt="Slide 6">
+            <img src="img7.jpg" class="slide" alt="Slide 7">
         </div>
 
         <button onclick="openPage3()">CLICK HERE 💕</button>
     </div>
-
-  <script>
-function openPage2() {
-    document.getElementById("page1").classList.remove("active");
-    document.getElementById("page2").classList.add("active");
-
-    launchConfetti();
-    startSlideshow();
-
-    const song = document.getElementById("song");
-    song.muted = true;
-    song.play().then(() => {
-        song.muted = false;
-    }).catch(err => {
-        console.log("Audio blocked:", err);
-    });
-}
-</script>
-
 </div>
 
-<!-- PAGE 3 -->
 <div class="page" id="page3">
     <div class="frame">
         <p class="message">
@@ -197,7 +179,6 @@ function openPage2() {
     </div>
 </div>
 
-<!-- PAGE 4 -->
 <div class="page" id="page4">
     <div class="frame">
         <p class="message">
@@ -209,13 +190,23 @@ function openPage2() {
     </div>
 </div>
 
+<audio id="song" src="music.mp3" loop></audio>
+
 <script>
 function openPage2() {
+    // Switch to Page 2
     document.getElementById("page1").classList.remove("active");
     document.getElementById("page2").classList.add("active");
+
+    // Start effects
     launchConfetti();
     startSlideshow();
-    document.getElementById("song").play();
+
+    // Start Music on this first interaction
+    const song = document.getElementById("song");
+    song.play().catch(error => {
+        console.log("Music play was prevented by browser. Make sure user interacts with the document first.");
+    });
 }
 
 function openPage3() {
@@ -231,32 +222,36 @@ function openPage4() {
 }
 
 function launchConfetti() {
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 60; i++) {
         const confetti = document.createElement("div");
         confetti.className = "confetti";
         confetti.style.left = Math.random() * 100 + "vw";
         confetti.style.background = ["#ff4d6d", "#ff85a1", "#c70039"][Math.floor(Math.random()*3)];
-        confetti.style.animationDuration = (Math.random() * 2 + 4) + "s";
+        
+        // Randomize fall speed
+        const duration = Math.random() * 3 + 3; 
+        confetti.style.animationDuration = duration + "s";
+        
         document.body.appendChild(confetti);
 
-        setTimeout(() => confetti.remove(), 60000);
+        // Remove confetti from DOM after it finishes falling to prevent lag
+        setTimeout(() => confetti.remove(), duration * 1000);
     }
 }
 
 function startSlideshow() {
-    const slides = document.querySelectorAll(".slideshow img");
+    const slides = document.querySelectorAll(".slide");
     let index = 0;
 
-    setInterval(() => {
-        slides[index].classList.remove("active");
-        index = (index + 1) % slides.length;
-        slides[index].classList.add("active");
-    }, 2500);
+    if (slides.length > 0) {
+        setInterval(() => {
+            slides[index].classList.remove("active");
+            index = (index + 1) % slides.length;
+            slides[index].classList.add("active");
+        }, 2500);
+    }
 }
 </script>
 
 </body>
 </html>
-
-
-
